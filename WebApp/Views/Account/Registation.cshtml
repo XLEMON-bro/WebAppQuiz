@@ -1,0 +1,35 @@
+﻿@model WebApp.ViewModels.RegisterModel
+@{
+    ViewData["Title"] = "Registration Page";
+}
+<h2>Регистрация</h2>
+<a class="btn btn-outline-dark" asp-action="Login" asp-controller="Account">Залогиниться</a>
+
+<form method="post" asp-action="Registation" asp-controller="Account" asp-antiforgery="true">
+    <div asp-validation-summary="ModelOnly"></div>
+    <div>
+        <div>
+            <label asp-for="Email">Email : </label><br />
+            <input asp-for="Email" />
+            <span asp-validation-for="Email"></span>
+        </div>
+        <div>
+            <label asp-for="User_Name">Name : </label><br />
+            <input asp-for="User_Name" />
+            <span asp-validation-for="User_Name"></span>
+        </div>
+        <div>
+            <label asp-for="Password">Password : </label><br />
+            <input asp-for="Password" />
+            <span asp-validation-for="Password"></span>
+        </div>
+        <div>
+            <label asp-for="ConfPassword">ConfirmPassword : </label><br />
+            <input asp-for="ConfPassword" />
+            <span asp-validation-for="ConfPassword"></span>
+        </div>
+        <div>
+            <input type="submit" value="Регистрация" class="btn btn-outline-dark" />
+        </div>
+    </div>
+</form>

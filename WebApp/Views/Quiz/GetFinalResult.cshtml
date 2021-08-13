@@ -1,0 +1,47 @@
+﻿@model IEnumerable<WebApp.ViewModels.ResultModel>
+@{ 
+    ViewBag.Title = "GetFinalResult";
+}
+<table style="width: 100%" class="table table-bordered">
+    <thead>
+        <tr>
+            <td>
+                Вопрос
+            </td>
+            <td>
+                Правильный ответ
+            </td>
+            <td>
+                Ваш ответ
+            </td>
+            <td>
+                Результат
+            </td>
+        </tr>
+    </thead>
+    @foreach(var item in Model)
+     {
+        <tr>
+            <td>
+                @item.Question
+            </td>
+            <td>
+                @item.Answer
+            </td>
+            <td>
+                @item.AnswerByUser
+            </td>
+            <td>
+                @if (item.Status == "+")
+                {
+                    <label style="color: green">@item.Status</label>
+                }
+                else
+                {
+                    <label style="color: red">@item.Status</label>
+                }
+            </td>
+        </tr>
+     }
+</table>
+<a class="btn btn-dark" asp-controller="Quiz" asp-action="QuizDetail">Список тестов</a>

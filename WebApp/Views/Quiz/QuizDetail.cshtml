@@ -1,0 +1,22 @@
+﻿@model WebApp.ViewModels.QuizCategoryModel
+@{
+    ViewData["Title"] = "QuizDetail";
+}
+<div class="text-center">
+<h2>Тест</h2>
+</div>
+<div>
+    <label>Вы можете выбрать один из тестов на какую-то тему и пройти его.</label>
+</div>
+@using(Html.BeginForm("QuizDetail", "Quiz", FormMethod.Post))
+{
+    @Html.ValidationSummary(true, null, new {@class = "text-danger"})
+<div class="container">
+    <div class="form-group">
+        @Html.LabelFor(model => model.CategoryId)
+        @Html.DropDownListFor(model => model.CategoryId, Model.CategoryList,new { @class = "form-control" })
+    </div>
+    <input type="submit" name="Submit" value="Начать" class="btn btn-primary" />
+</div>
+}
+

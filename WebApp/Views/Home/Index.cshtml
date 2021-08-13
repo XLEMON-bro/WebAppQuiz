@@ -1,0 +1,27 @@
+﻿@model WebApp.Models.User
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-md-left">
+    @if (User.Identity.IsAuthenticated) { 
+    <div>
+        <div class="text-center">
+        <h5>Добро пожаловать: </h5>
+        <label>@User.Identity.Name</label>
+        </div>
+        <div class="text-md-center">
+            <label>Попробуйте пройти тест</label>
+        </div>
+        <div class="text-md-center">
+         <a class="btn btn-outline-dark" asp-action="QuizDetail" asp-controller="Quiz">Quiz</a> 
+        </div>
+    </div>}
+</div>
+@if (!User.Identity.IsAuthenticated) { 
+<div class="text-md-center">
+    <h2 class="display-4">Добро пожаловать</h2>
+    <h2 class="display-4">Cайт для прохождения тестов!</h2>
+    <h3>Что бы продолжить пройдите регистрацию.</h3>
+    <a class="btn btn-outline-dark" asp-action="Registation" asp-controller="Account">Регистрация</a>
+</div>}
