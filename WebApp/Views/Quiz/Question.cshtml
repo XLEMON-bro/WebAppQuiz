@@ -13,7 +13,7 @@
 
     function SaveCandidateAnswer() {
         var answerText = "";
-        $.each($("#tblQuestionOption tr").find("td:eq(0) input[type=radio]:cheked"),
+        $.each($("#tblQuestionOption tr").find("td:eq(0) input[type=radio]:checked"),
             function () {
                 answerText = $(this).val();
             });
