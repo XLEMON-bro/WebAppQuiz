@@ -14,5 +14,7 @@ namespace WebApp.Models
         public int QuestionId { get; set; }
         [Required]
         public string AnswerText { get; set; }
+
+        public Question Question { get; set; }
     }
 }

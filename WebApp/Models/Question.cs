@@ -11,8 +11,11 @@ namespace WebApp.Models
         [Key]
         public int QuestionId { get; set; }
         [Required]
-        public int CategoryId { get; set; }
-        [Required]
         public string QuestionText { get; set; }
+        [Required]
+        public int CategoryId { get; set; }
+        public Category Category { get; set; }
+        public List<Option> Options { get; set; }
+        public List<Answer> Answers { get; set; }
     }
 }

@@ -38,6 +38,10 @@ namespace WebApp.Models
                 entity.ToTable("Answers");
                 entity.Property(e => e.AnswerText).IsRequired().HasMaxLength(400);
 
+                entity.HasOne(q => q.Question)
+                .WithMany(a => a.Answers)
+                .HasForeignKey(f => f.QuestionId);
+
             });
             modelBuilder.Entity<Category>(entity =>
             {
@@ -48,11 +52,19 @@ namespace WebApp.Models
             {
                 entity.ToTable("Options");
                 entity.Property(e => e.OptionName).IsRequired().HasMaxLength(400);
+
+                entity.HasOne(q => q.Question)
+                .WithMany(o => o.Options)
+                .HasForeignKey(f => f.QuestionId);
             });
             modelBuilder.Entity<Question>(entity =>
             {
                 entity.ToTable("Questions");
                 entity.Property(e => e.QuestionText).IsRequired().HasMaxLength(400);
+
+                entity.HasOne(c => c.Category)
+                .WithMany(q => q.Questions)
+                .HasForeignKey(f => f.CategoryId);
 
             });
             modelBuilder.Entity<Result>(entity =>

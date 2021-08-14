@@ -12,5 +12,6 @@ namespace WebApp.Models
         public int CategoryId { get; set; }
         [Required]
         public string CategoryName { get; set; }
+        public List<Question> Questions { get; set; }
     }
 }

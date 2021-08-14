@@ -42,12 +42,19 @@ namespace WebApp.Controllers
         {
             //Список доступных категорий и их имена
             QuizCategoryModel quizCategoryModel = new QuizCategoryModel();
-            quizCategoryModel.CategoryList = (from obj in _db.Categories
+            /*quizCategoryModel.CategoryList = (from obj in _db.Categories
                                               select new SelectListItem()
                                               {
                                                   Value = obj.CategoryId.ToString(),
                                                   Text = obj.CategoryName.ToString()
-                                              }).ToList(); 
+                                              }).ToList();*/
+
+            quizCategoryModel.CategoryList = _db.Categories.Select(s => new SelectListItem()
+            {
+                Value = s.CategoryId.ToString(),
+                Text = s.CategoryName.ToString()
+            }).ToList();
+
             return View(quizCategoryModel);
         }
         [HttpPost]
@@ -76,7 +83,7 @@ namespace WebApp.Controllers
             bool IsLast = false;
             if(userAnswer.AnswerText != null)
             {
-                List<UserAnswer> CandidateAnswers = HttpContext.Session.Get<List<UserAnswer>>("CadQuestionAnswer") as List<UserAnswer>;
+                List<UserAnswer> CandidateAnswers = HttpContext.Session.Get<List<UserAnswer>>("CadQuestionAnswer");
                 if(CandidateAnswers == null)
                 {
                     CandidateAnswers = new List<UserAnswer>();
@@ -93,7 +100,7 @@ namespace WebApp.Controllers
             }
             else
             {
-                List<UserAnswer> canAnswer = HttpContext.Session.Get<List<UserAnswer>>("CadQuestionAnswer") as List<UserAnswer>;
+                List<UserAnswer> canAnswer = HttpContext.Session.Get<List<UserAnswer>>("CadQuestionAnswer");
                 HttpContext.Session.SetInt32("pageNumbe", pageNumber + 1);
 
             }
@@ -113,13 +120,20 @@ namespace WebApp.Controllers
             questionAnswerModel.IsLast = IsLast;
             questionAnswerModel.QuestionId = question.QuestionId;
             questionAnswerModel.QuestionName = question.QuestionText;
-            questionAnswerModel.ListOfOptionsForQuiz = (from obj in _db.Options
+            /*questionAnswerModel.ListOfOptionsForQuiz = (from obj in _db.Options
                                                         where obj.QuestionId == question.QuestionId
                                                         select new QuizOption()
                                                         {
                                                             OptionName = obj.OptionName,
                                                             OptionId = obj.OptionId
-                                                        }).ToList();
+                                                        }).ToList();*/
+
+            questionAnswerModel.ListOfOptionsForQuiz = _db.Options.Where(w => w.QuestionId == question.QuestionId)
+                                                       .Select(s => new QuizOption()
+                                                       {
+                                                           OptionName = s.OptionName,
+                                                           OptionId = s.OptionId
+                                                       }).ToList();
 
             return PartialView("QuestionOption", questionAnswerModel);
         }
